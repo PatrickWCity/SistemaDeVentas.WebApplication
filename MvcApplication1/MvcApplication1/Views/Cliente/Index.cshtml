@@ -1,0 +1,177 @@
+﻿@model List<MvcApplication1.Models.Cliente>
+
+@{
+    ViewBag.Title = "Clientes";
+}
+
+<style>
+    #alerta {
+        background-color: #aaffcc;
+        padding: 10px;
+        display: inline-block;
+        width: 100%;
+        animation: aparecer 2s;
+    }
+
+    article {
+        width: 20%;
+        margin: 10px;
+        padding: 10px;
+        float: left;
+        background-color: #aaccff;
+    }
+
+    @@keyframes aparecer {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+</style>
+
+<br />
+<br />
+<h2>Los Clientes</h2>
+<div class="container">
+    <a href="/Cliente/Crear">Agregar una cliente</a><br />
+
+    @if (Request.Params["Msg"] != null)
+    {
+        <span id="alerta">@Request.Params["Msg"]</span>
+    }
+
+
+    @foreach (var cliente in Model)
+    {
+        <article>
+            <h3>@cliente.nombre <a href="/Cliente/Editar/@cliente.idCliente">Editar</a>  <a href="/Cliente/Eliminar/@cliente.idCliente">Elimimar</a></h3>
+        </article>
+
+    }
+
+
+
+    </div>
+
+
+
+    <style>
+        .respuesta {
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            background-color: #aaffaa;
+            animation: aparecer 1s;
+        }
+
+        section article {
+            padding: 10px;
+            margin: 10px;
+            width: 20%;
+            background-color: #b6ff00;
+            float: left;
+            transition: all 1s;
+            text-align: center;
+        }
+
+            section article img {
+                width: 100%;
+                height: 100px;
+            }
+
+            section article:hover {
+                transform: scale(1.05,1.05);
+                background-color: #d8ff22;
+                transition: all 1s;
+            }
+
+
+        @@keyframes aparecer {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+    <h2>Todos los Clientes</h2>
+<div class="container">
+    <form id="formulario">
+        <input type="text" name="nombre" placeholder="nombre" /><br />
+        <input type="text" name="apPaterno" placeholder="apPaterno" /><br />
+        <input type="text" name="apMaterno" placeholder="apMaterno" /><br />
+        <input type="text" name="direccion" placeholder="direccion" /><br />
+        <input type="text" name="telefono" placeholder="telefono" /><br />
+        <input type="text" name="rut" placeholder="rut" /><br />
+        <button type="button" onclick="obtenerdatos()">Enviar datos al servidor </button>
+    </form>
+    </div>
+    <div id="respuestaajax">
+
+    </div>
+    <script>
+        class Cliente {
+            constructor(nombre, apPaterno, apMaterno, direccion, telefono, rut) {
+                this.nombre = nombre;
+                this.apPaterno = apPaterno;
+                this.apMaterno = apMaterno;
+                this.direccion = direccion;
+                this.telefono = telefono;
+                this.rut = rut;
+            }
+        }
+
+        function obtenerdatos() {
+            var divresp = document.getElementById("respuestaajax");
+            var objform = document.getElementById("formulario");
+            var objcliente = new Cliente(objform.nombre.value, objform.apPaterno.value, objform.apMaterno.value, objform.direccion.value, objform.telefono.value, objform.rut.value);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    var data = JSON.parse(this.responseText);
+                    console.log(data);
+                    if (data.Respuesta == "Ok") {
+                        var str = "<article id='cliente_" + data.Id + "'>";
+                        str += "<h3>" + objcliente.nombre + "</h3>";
+                        str += "<p>" + objcliente.apPaterno + "</p>";
+                        str += "<p>" + objcliente.apMaterno + "</p>";
+                        str += "<p>" + objcliente.direccion + "</p>";
+                        str += "<p>" + objcliente.telefono + "</p>";
+                        str += "<p>" + objcliente.rut + "</p>";
+                        str += "<a href='#' >ver más ...</a>";
+                        str += "</article>";
+                        var seccion = document.getElementById("cuerpocliente");
+                        seccion.innerHTML += str;
+                        divresp.innerHTML = "<span class='respuesta'>Cliente insertado con éxito</span>";
+                    }
+                }
+            };
+            xhttp.open("POST", "/Cliente/AgregarCliente", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("nombre=" + objcliente.nombre + "&apPaterno=" + objcliente.apPaterno + "&apMaterno=" + objcliente.apMaterno + "&direccion=" + objcliente.direccion + "&telefono=" + objcliente.telefono + "&rut=" + objcliente.rut);
+        }
+
+
+    </script>
+<div class="container">
+    <section id="cuerpocliente">
+        @foreach (var cliente in Model)
+        {
+            <article>
+                <h3>@cliente.nombre</h3>
+                <p>@cliente.apPaterno</p>
+                <p>@cliente.apMaterno</p>
+                <p>@cliente.direccion</p>
+                <p>@cliente.telefono</p>
+                <p>@cliente.rut</p>
+                <a href="#">ver más ...</a>
+            </article>
+        }
+    </section>
+    </div>

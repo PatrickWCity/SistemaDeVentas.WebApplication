@@ -1,0 +1,16 @@
+﻿@model MvcApplication1.Models.DetalleVenta
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar</h2>
+<form action="/DetalleVenta/EditardetalleVenta" method="post">
+    <input type="hidden" name="detalleVenta.idDetalle" value="@Model.idDetalle" />
+    <input type="text" name="detalleVenta.numFactura" value="@Model.numFactura" />
+    <input type="text" name="detalleVenta.idVenta" value="@Model.idVenta" />
+    <input type="text" name="detalleVenta.subTotal" value="@Model.subTotal" />
+    <input type="text" name="detalleVenta.idProducto" value="@Model.idProducto" />
+    <input type="text" name="detalleVenta.cantidad" value="@Model.cantidad" />
+    <input type="submit" />
+</form>
+

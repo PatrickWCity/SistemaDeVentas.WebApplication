@@ -1,0 +1,180 @@
+﻿@model List<MvcApplication1.Models.Producto>
+
+@{
+    ViewBag.Title = "Productos";
+}
+
+<style>
+    #alerta {
+        background-color: #aaffcc;
+        padding: 10px;
+        display: inline-block;
+        width: 100%;
+        animation: aparecer 2s;
+    }
+
+    article {
+        width: 20%;
+        margin: 10px;
+        padding: 10px;
+        float: left;
+        background-color: #aaccff;
+    }
+
+    @@keyframes aparecer {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+</style>
+
+<br />
+<br />
+<h2>Los Productos</h2>
+<div class="container">
+    <a href="/Producto/Crear">Agregar un producto</a><br />
+
+    @if (Request.Params["Msg"] != null)
+    {
+        <span id="alerta">@Request.Params["Msg"]</span>
+    }
+
+
+    @foreach (var producto in Model)
+    {
+        <article>
+            <h3>
+                @producto.nombre <a href="/Producto/Editar/@producto.idProducto">Editar</a>
+            <a href="/Producto/Eliminar/@producto.idProducto">Elimimar</a>
+        </h3>
+    </article>
+
+    }
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <style>
+        .respuesta {
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            background-color: #aaffaa;
+            animation: aparecer 1s;
+        }
+
+        section article {
+            padding: 10px;
+            margin: 10px;
+            width: 20%;
+            background-color: #b6ff00;
+            float: left;
+            transition: all 1s;
+            text-align: center;
+        }
+
+            section article img {
+                width: 100%;
+                height: 100px;
+            }
+
+            section article:hover {
+                transform: scale(1.05,1.05);
+                background-color: #d8ff22;
+                transition: all 1s;
+            }
+
+
+        @@keyframes aparecer {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+    <h2>Todos los Productos</h2>
+<div class="container">
+    <form id="formulario">
+        <input type="text" name="nombre" placeholder="nombre" /><br />
+        <input type="text" name="descripcion" placeholder="descripcion" /><br />
+        <input type="text" name="precioUnitario" placeholder="precioUnitario" /><br />
+        <input type="text" name="url_imagen" placeholder="url_imagen" /><br />
+        <input type="text" name="idCategoria" placeholder="idCategoria" /><br />
+        <button type="button" onclick="obtenerdatos()">Enviar datos al servidor </button>
+    </form>
+    </div>
+    <div id="respuestaajax">
+
+    </div>
+    <script>
+        class Producto {
+            constructor(nombre, descripcion, precioUnitario, url_imagen, idCategoria) {
+                this.nombre = nombre;
+                this.descripcion = descripcion;
+                this.precioUnitario = precioUnitario;
+                this.url_imagen = url_imagen;
+                this.idCategoria = idCategoria;
+            }
+        }
+
+        function obtenerdatos() {
+            var divresp = document.getElementById("respuestaajax");
+            var objform = document.getElementById("formulario");
+            var objproducto = new Producto(objform.nombre.value, objform.precioUnitario.value, objform.url_imagen.value, objform.idCategoria.value);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    var data = JSON.parse(this.responseText);
+                    console.log(data);
+                    if (data.Respuesta == "Ok") {
+                        var str = "<article id='producto_" + data.Id + "'>";
+                        str += "<h3>" + objproducto.nombre + "</h3>";
+                        str += "<p>" + objproducto.precioUnitario + "</p>";
+                        str += "<img src=" + objproducto.url_imagen + " />";
+                        str += "<p>" + objproducto.idCategoria + "</p>";
+                        str += "<a href='#' >ver más ...</a>";
+                        str += "</article>";
+                        var seccion = document.getElementById("cuerpoproducto");
+                        seccion.innerHTML += str;
+                        divresp.innerHTML = "<span class='respuesta'>Producto insertado con éxito</span>";
+                    }
+                }
+            };
+            xhttp.open("POST", "/Producto/AgregarProducto", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("nombre=" + objproducto.nombre + "&descripcion=" + objproducto.descripcion + "&precioUnitario=" + objproducto.precioUnitario + "&url_imagen=" + objproducto.url_imagen + "&idCategoria=" + objproducto.idCategoria);
+        }
+
+
+    </script>
+<div class="container">
+    <section id="cuerpoproducto">
+        @foreach (var producto in Model)
+        {
+            <article>
+                <h3>@producto.nombre</h3>
+                <p>@producto.precioUnitario</p>
+                <img src="@producto.url_imagen" />
+                <p>@producto.idCategoria</p>
+                <a href="#">ver más ...</a>
+            </article>
+        }
+    </section>
+    </div>

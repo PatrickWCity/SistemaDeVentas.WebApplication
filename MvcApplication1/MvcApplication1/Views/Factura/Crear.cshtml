@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Crear";
+}
+
+<h2>Crear</h2>
+<form action="/Factura/CrearFactura" method="post">
+    <input type="text" name="factura.fecha" />
+    <input type="text" name="factura.IVA" />
+    <input type="text" name="factura.total" />
+    <input type="text" name="factura.numPago" />
+    <input type="text" name="factura.descuento" />
+    <input type="submit" value="Guardar" />
+</form>

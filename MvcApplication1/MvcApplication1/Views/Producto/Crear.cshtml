@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Crear";
+}
+
+<h2>Crear</h2>
+<form action="/Producto/CrearProducto" method="post">
+    <input type="text" name="producto.nombre" />
+    <input type="text" name="producto.descripcion" />
+    <input type="text" name="producto.precioUnitario" />
+    <input type="text" name="producto.url_imagen" />
+    <input type="text" name="producto.idCategoria" />
+    <input type="submit" value="Guardar" />
+</form>

@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Crear";
+}
+
+<h2>Crear</h2>
+<form action="/DetalleVenta/CrearDetalleVenta" method="post">
+    <input type="text" name="detalleVenta.numFactura" />
+    <input type="text" name="detalleVenta.idVenta" />
+    <input type="text" name="detalleVenta.subTotal" />
+    <input type="text" name="detalleVenta.idProducto" />
+    <input type="text" name="detalleVenta.cantidad" />
+    <input type="submit" value="Guardar" />
+</form>

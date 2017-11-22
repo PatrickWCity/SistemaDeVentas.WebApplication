@@ -1,0 +1,172 @@
+﻿@model List<MvcApplication1.Models.Vendedor>
+
+@{
+    ViewBag.Title = "Vendedores";
+}
+
+<style>
+    #alerta {
+        background-color: #aaffcc;
+        padding: 10px;
+        display: inline-block;
+        width: 100%;
+        animation: aparecer 2s;
+    }
+
+    article {
+        width: 20%;
+        margin: 10px;
+        padding: 10px;
+        float: left;
+        background-color: #aaccff;
+    }
+
+    @@keyframes aparecer {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+</style>
+<br />
+<br />
+<h2>Los Vendedores</h2>
+<div class="container">
+    <a href="/Vendedor/Crear">Agregar una vendedor</a><br />
+
+    @if (Request.Params["Msg"] != null)
+    {
+        <span id="alerta">@Request.Params["Msg"]</span>
+    }
+
+
+    @foreach (var vendedor in Model)
+    {
+        <article>
+            <h3>@vendedor.nombre <a href="/Vendedor/Editar/@vendedor.idVendedor">Editar</a>  <a href="/Vendedor/Eliminar/@vendedor.idVendedor">Elimimar</a></h3>
+        </article>
+
+    }
+    </div>
+
+
+
+
+
+
+    <style>
+        .respuesta {
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            background-color: #aaffaa;
+            animation: aparecer 1s;
+        }
+
+        section article {
+            padding: 10px;
+            margin: 10px;
+            width: 20%;
+            background-color: #b6ff00;
+            float: left;
+            transition: all 1s;
+            text-align: center;
+        }
+
+            section article img {
+                width: 100%;
+                height: 100px;
+            }
+
+            section article:hover {
+                transform: scale(1.05,1.05);
+                background-color: #d8ff22;
+                transition: all 1s;
+            }
+
+
+        @@keyframes aparecer {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+<div class="container">
+    <h2>Todos los Vendedores</h2>
+    <form id="formulario">
+        <input type="text" name="nombre" placeholder="nombre" /><br />
+        <input type="text" name="apPaterno" placeholder="apPaterno" /><br />
+        <input type="text" name="apMaterno" placeholder="apMaterno" /><br />
+        <input type="text" name="rut" placeholder="rut" /><br />
+        <input type="text" name="telefono" placeholder="telefono" /><br />
+        <button type="button" onclick="obtenerdatos()">Enviar datos al servidor </button>
+    </form>
+    </div>
+    <div id="respuestaajax">
+
+    </div>
+    <script>
+        class Vendedor {
+            constructor(nombre, apPaterno, apMaterno, rut, telefono) {
+                this.nombre = nombre;
+                this.apPaterno = apPaterno;
+                this.apMaterno = apMaterno;
+                this.rut = rut;
+                this.telefono = telefono;
+            }
+        }
+
+        function obtenerdatos() {
+            var divresp = document.getElementById("respuestaajax");
+            var objform = document.getElementById("formulario");
+            var objvendedor = new Vendedor(objform.nombre.value, objform.apPaterno.value, objform.apMaterno.value, objform.rut.value, objform.telefono.value);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    var data = JSON.parse(this.responseText);
+                    console.log(data);
+                    if (data.Respuesta == "Ok") {
+                        var str = "<article id='vendedor_" + data.Id + "'>";
+                        str += "<h3>" + objvendedor.nombre + "</h3>";
+                        str += "<p>" + objvendedor.apPaterno + "</p>";
+                        str += "<p>" + objvendedor.apMaterno + "</p>";
+                        str += "<p>" + objvendedor.rut + "</p>";
+                        str += "<p>" + objvendedor.telefono + "</p>";
+                        str += "<a href='#' >ver más ...</a>";
+                        str += "</article>";
+                        var seccion = document.getElementById("cuerpovendedor");
+                        seccion.innerHTML += str;
+                        divresp.innerHTML = "<span class='respuesta'>Vendedor insertado con éxito</span>";
+                    }
+                }
+            };
+            xhttp.open("POST", "/Vendedor/AgregarVendedor", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("nombre=" + objvendedor.nombre + "&apPaterno=" + objvendedor.apPaterno + "&apMaterno=" + objvendedor.apMaterno + "&rut=" + objvendedor.rut + "&telefono=" + objvendedor.telefono);
+        }
+
+
+    </script>
+<div class="container">
+    <section id="cuerpovendedor">
+        @foreach (var vendedor in Model)
+        {
+            <article>
+                <h3>@vendedor.nombre</h3>
+                <p>@vendedor.apPaterno</p>
+                <p>@vendedor.apMaterno</p>
+                <p>@vendedor.rut</p>
+                <p>@vendedor.telefono</p>
+                <a href="#">ver más ...</a>
+            </article>
+        }
+    </section>
+    </div>

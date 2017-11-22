@@ -1,0 +1,15 @@
+﻿@model MvcApplication1.Models.Vendedor
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar</h2>
+<form action="/Vendedor/Editarvendedor" method="post">
+    <input type="hidden" name="vendedor.idVendedor" value="@Model.idVendedor" />
+    <input type="text" name="vendedor.nombre" value="@Model.nombre" />
+    <input type="text" name="vendedor.apPaterno" value="@Model.apPaterno" />
+    <input type="text" name="vendedor.apMaterno" value="@Model.apMaterno" />
+    <input type="text" name="vendedor.rut" value="@Model.rut" />
+    <input type="text" name="vendedor.telefono" value="@Model.telefono" />
+    <input type="submit" />
+</form>

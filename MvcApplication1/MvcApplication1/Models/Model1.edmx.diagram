@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="db3b0a57038d421989dcdcbbfdb46f7c" Name="Diagram1" ZoomLevel="108">
+        <EntityTypeShape EntityType="SistemaVentaModel.Categoria" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaVentaModel.Cliente" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaVentaModel.DetalleVenta" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaVentaModel.Factura" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaVentaModel.ModoPago" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaVentaModel.Producto" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaVentaModel.Vendedor" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaVentaModel.Venta" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="SistemaVentaModel.FK_producto_idCate" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaVentaModel.FK_venta_cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaVentaModel.FK_detalleFa_idPed" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaVentaModel.FK_detalleFactura_factura" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaVentaModel.FK_detalleFactura_producto" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaVentaModel.FK_factura_modoPago" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaVentaModel.FK_venta_vendedor" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
