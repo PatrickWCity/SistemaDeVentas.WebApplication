@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SistemaVentaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accesos_usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usuario" Type="int" />
+          <Property Name="id_url" Type="int" />
+        </EntityType>
         <EntityType Name="Categoria">
           <Key>
             <PropertyRef Name="idCategoria" />
@@ -67,6 +75,23 @@
           <Property Name="url_imagen" Type="varchar" MaxLength="255" />
           <Property Name="idCategoria" Type="int" />
         </EntityType>
+        <EntityType Name="Urls">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="controller" Type="varchar" MaxLength="500" />
+          <Property Name="action" Type="varchar" MaxLength="500" />
+          <Property Name="nombre" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="500" />
+          <Property Name="password" Type="varchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="Vendedor">
           <Key>
             <PropertyRef Name="idVendedor" />
@@ -90,6 +115,30 @@
           <Property Name="descuento" Type="int" />
           <Property Name="IVA" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Accesos_usuarios_Urls">
+          <End Role="Urls" Type="Self.Urls" Multiplicity="0..1" />
+          <End Role="Accesos_usuarios" Type="Self.Accesos_usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urls">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Accesos_usuarios">
+              <PropertyRef Name="id_url" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accesos_usuarios_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Accesos_usuarios" Type="Self.Accesos_usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Accesos_usuarios">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_detalleFa_idPed">
           <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
           <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
@@ -175,14 +224,25 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SistemaVentaModelStoreContainer">
+          <EntitySet Name="Accesos_usuarios" EntityType="Self.Accesos_usuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetalleVenta" EntityType="Self.DetalleVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModoPago" EntityType="Self.ModoPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Urls" EntityType="Self.Urls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendedor" EntityType="Self.Vendedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Venta" EntityType="Self.Venta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Accesos_usuarios_Urls" Association="Self.FK_Accesos_usuarios_Urls">
+            <End Role="Urls" EntitySet="Urls" />
+            <End Role="Accesos_usuarios" EntitySet="Accesos_usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accesos_usuarios_Usuarios" Association="Self.FK_Accesos_usuarios_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Accesos_usuarios" EntitySet="Accesos_usuarios" />
+          </AssociationSet>
           <AssociationSet Name="FK_detalleFa_idPed" Association="Self.FK_detalleFa_idPed">
             <End Role="Venta" EntitySet="Venta" />
             <End Role="DetalleVenta" EntitySet="DetalleVenta" />
@@ -436,7 +496,71 @@
             <End Role="Vendedor" EntitySet="Vendedor" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
+          <EntitySet Name="Accesos_usuarios" EntityType="SistemaVentaModel.Accesos_usuarios" />
+          <EntitySet Name="Urls" EntityType="SistemaVentaModel.Urls" />
+          <EntitySet Name="Usuarios" EntityType="SistemaVentaModel.Usuarios" />
+          <AssociationSet Name="FK_Accesos_usuarios_Urls" Association="SistemaVentaModel.FK_Accesos_usuarios_Urls">
+            <End Role="Urls" EntitySet="Urls" />
+            <End Role="Accesos_usuarios" EntitySet="Accesos_usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accesos_usuarios_Usuarios" Association="SistemaVentaModel.FK_Accesos_usuarios_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Accesos_usuarios" EntitySet="Accesos_usuarios" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Accesos_usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usuario" Type="Int32" />
+          <Property Name="id_url" Type="Int32" />
+          <NavigationProperty Name="Urls" Relationship="SistemaVentaModel.FK_Accesos_usuarios_Urls" FromRole="Accesos_usuarios" ToRole="Urls" />
+          <NavigationProperty Name="Usuarios" Relationship="SistemaVentaModel.FK_Accesos_usuarios_Usuarios" FromRole="Accesos_usuarios" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Urls">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="controller" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Accesos_usuarios" Relationship="SistemaVentaModel.FK_Accesos_usuarios_Urls" FromRole="Urls" ToRole="Accesos_usuarios" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Accesos_usuarios" Relationship="SistemaVentaModel.FK_Accesos_usuarios_Usuarios" FromRole="Usuarios" ToRole="Accesos_usuarios" />
+        </EntityType>
+        <Association Name="FK_Accesos_usuarios_Urls">
+          <End Type="SistemaVentaModel.Urls" Role="Urls" Multiplicity="0..1" />
+          <End Type="SistemaVentaModel.Accesos_usuarios" Role="Accesos_usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urls">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Accesos_usuarios">
+              <PropertyRef Name="id_url" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accesos_usuarios_Usuarios">
+          <End Type="SistemaVentaModel.Usuarios" Role="Usuarios" Multiplicity="0..1" />
+          <End Type="SistemaVentaModel.Accesos_usuarios" Role="Accesos_usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Accesos_usuarios">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -532,6 +656,34 @@
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="descuento" ColumnName="descuento" />
                 <ScalarProperty Name="IVA" ColumnName="IVA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accesos_usuarios">
+            <EntityTypeMapping TypeName="SistemaVentaModel.Accesos_usuarios">
+              <MappingFragment StoreEntitySet="Accesos_usuarios">
+                <ScalarProperty Name="id_url" ColumnName="id_url" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Urls">
+            <EntityTypeMapping TypeName="SistemaVentaModel.Urls">
+              <MappingFragment StoreEntitySet="Urls">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="controller" ColumnName="controller" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="SistemaVentaModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -20,6 +20,11 @@
         <AssociationConnector Association="SistemaVentaModel.FK_detalleFactura_producto" ManuallyRouted="false" />
         <AssociationConnector Association="SistemaVentaModel.FK_factura_modoPago" ManuallyRouted="false" />
         <AssociationConnector Association="SistemaVentaModel.FK_venta_vendedor" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SistemaVentaModel.Accesos_usuarios" Width="1.5" PointX="5.625" PointY="4.875" />
+        <EntityTypeShape EntityType="SistemaVentaModel.Urls" Width="1.5" PointX="3.375" PointY="15.875" />
+        <EntityTypeShape EntityType="SistemaVentaModel.Usuarios" Width="1.5" PointX="3.375" PointY="5" />
+        <AssociationConnector Association="SistemaVentaModel.FK_Accesos_usuarios_Urls" />
+        <AssociationConnector Association="SistemaVentaModel.FK_Accesos_usuarios_Usuarios" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

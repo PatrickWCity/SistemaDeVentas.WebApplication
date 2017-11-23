@@ -33,5 +33,8 @@ namespace MvcApplication1.Models
         public DbSet<Producto> Producto { get; set; }
         public DbSet<Vendedor> Vendedor { get; set; }
         public DbSet<Venta> Venta { get; set; }
+        public DbSet<Accesos_usuarios> Accesos_usuarios { get; set; }
+        public DbSet<Urls> Urls { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
     }
 }
