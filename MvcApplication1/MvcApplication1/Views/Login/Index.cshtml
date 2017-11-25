@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Login</h2>
+
+<form action="/Login/CrearSesion" method="post">
+    <input type="text" name="email" placeholder="Ingrese usuario" /><br />
+    <input type="text" name="pass" placeholder="Ingrese password" /><br />
+    <button type="submit">Ingresar</button>
+</form>
+<p>@ViewBag.error</p>

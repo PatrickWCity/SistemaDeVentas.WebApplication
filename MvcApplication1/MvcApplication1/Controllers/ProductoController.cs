@@ -14,6 +14,9 @@ namespace MvcApplication1.Controllers
         {
             List<Producto> resp = db_context.Producto.ToList();
             return View(resp);
+
+            //List<Producto> resp = db_context.Producto.OrderByDescending(q => q.idProducto).Take(10).ToList();
+            //return View(resp);
         }
 
         [HttpGet]

@@ -178,3 +178,35 @@
         }
     </section>
     </div>
+
+
+
+<h2 class="text-center text-success">Listado de los Ultimos 10 Productos Nuevos</h2>
+<div class="well well-sm"><a class="btn btn-primary" href="~/Producto/Create">Nuevo</a></div>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr class="bg-primary">
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio Unitario</th>
+            <th colspan="3">Operaciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var objProducto in Model)
+        {
+            <tr>
+                <td>@objProducto.idProducto</td>
+                <td>@objProducto.nombre</td>
+                <td>@objProducto.descripcion</td>
+                <td>@objProducto.precioUnitario CLP</td>
+                <td><a class="btn btn-success" href="~/Producto/Find/@objProducto.idProducto"><span class="glyphicon glyphicon-eye-open"></span> Ver Producto</a></td>
+                <td><a class="btn btn-info" href="~/Producto/Update/@objProducto.idProducto"><span class="fa fa-edit"></span> Editar Producto</a></td>
+                <td><a class="btn btn-danger" href="~/Producto/Delete/@objProducto.idProducto"><span class="fa fa-remove"></span> Eliminar Producto</a></td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>
