@@ -44,6 +44,7 @@ namespace MvcApplication1
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js",
+                "~/Scripts/bootstrap.bundle.min.js",
                 "~/Scripts/respond.js"));
         }
     }

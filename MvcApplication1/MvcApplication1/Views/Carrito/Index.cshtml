@@ -1,0 +1,23 @@
+﻿@model List<MvcApplication1.Models.ProductoCarro>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@foreach (var item in Model)
+{
+<article>
+    <h4>item.nombre</h4>
+    <p>item.descripcion</p>
+    <button type="button" onclick="anadiralcarro(@item.Id)"> Anadir al carro</button>
+</article>
+}
+
+
+<script>
+    function anadiralcarro(id)
+    {
+
+    }
+
+</script>

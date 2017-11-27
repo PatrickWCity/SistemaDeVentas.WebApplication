@@ -17,7 +17,9 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(db_context.Urls.ToList());
+            List<Producto> resp = db_context.Producto.OrderByDescending(q => q.idProducto).Take(10).ToList();
+            return View(resp);
+           // return View(db_context.Urls.ToList());
         }
         public ActionResult About()
         {

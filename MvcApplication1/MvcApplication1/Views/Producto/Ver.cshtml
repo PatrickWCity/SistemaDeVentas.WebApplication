@@ -1,0 +1,15 @@
+﻿@model MvcApplication1.Models.Producto
+@{
+    ViewBag.Title = "Ver Producto";
+}
+<div class="col-lg-9">
+    <div class="card mt-4">
+        <img class="card-img-top img-fluid" src="@Model.url_imagen" alt="@Model.nombre" width="100%" height="400px">
+        <div class="card-body">
+            <h3 class="card-title">ID: @Model.idProducto</h3>
+            <h3 class="card-title">Nombre: @Model.nombre</h3>
+            <h4>Precio Unitario: @Model.precioUnitario CLP</h4>
+            <p class="card-text">@Model.descripcion</p>
+        </div>
+        <td><a class="btn btn-info" @Html.ActionLink("Agregar a Carrito", "OrderNow", "ShoppingCart", new { id = Model.idProducto},null)</a></td>
+    </div>

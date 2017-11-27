@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Cart";
+}
+
+<h2>Cart</h2>
+@using MvcApplication1.Models
+    @{
+        double grandTotal = 0;
+    }
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th class="text-center">Precio</th>
+                        <th class="text-center">Total</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+@foreach (Item item in (List<Item>)Session["cart"])
+{
+    double subTotal = Convert.ToDouble(item.Cantidad) * Convert.ToDouble(item.Producto.precioUnitario);
+    grandTotal += subTotal;
+                    <tr>
+                        <td class="col-md-6">
+                            <div class="media">
+                                <a class="thumbnail pull-left" href="#"> <img class="media-object" src="@item.Producto.url_imagen" style="width: 72px; height: 72px;"> </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a href="#">@item.Producto.nombre</a></h4>
+                                    <h5 class="media-heading"><a href="#"></a></h5>
+                                    <span>Status: </span><span class="text-warning"><strong>En Carrito</strong></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-md-1 text-center"><strong>@item.Cantidad</strong></td>
+                        <td class="col-md-1 text-center"><strong>@item.Producto.precioUnitario CLP</strong></td>
+                        <td class="col-md-1 text-center"><strong>@(item.Producto.precioUnitario * item.Cantidad) CLP</strong></td>
+                        <td class="col-md-1">
+                            <a href="/ShoppingCart/Eliminar/@item.Producto.idProducto" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-remove"></span> Remove</a>
+                        </td>
+                    </tr>
+
+
+}
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h3>Total</h3></td>
+                        <td class="text-right"><h3><strong>@grandTotal CLP</strong></h3></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> Continuar Comprando
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success">
+                                Comprar <span class="glyphicon glyphicon-play"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

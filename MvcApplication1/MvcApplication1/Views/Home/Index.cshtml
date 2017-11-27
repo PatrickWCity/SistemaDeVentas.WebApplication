@@ -1,43 +1,58 @@
-﻿@model List<MvcApplication1.Models.Urls>
+﻿@model List<MvcApplication1.Models.Producto>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Pagina Principal";
 }
 
 <div class="jumbotron">
-    <h1>Tienda</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>eTienda</h1>
+    <p class="lead">Bienvienido a Nuestra Tienda en Linea de Productos.</p>
+    <p><a href="/Producto/" class="btn btn-primary btn-lg">Ver Productos</a></p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>Compra en linea</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            No mas Lineas.
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>Carrito de Compras</h2>
+        <p>Deja los productos que queras comprar en un carrito.</p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Crea te una cuenta</h2>
+        <p>Facil de Crear una Cuenta.</p>
     </div>
 </div>
 
-<!-- login index home-->
+<h2 class="text-center text-success">Listado de los Ultimos 10 Productos Nuevos</h2>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr class="bg-primary">
+            <th>Código</th>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio Unitario</th>
+            
+            <th>Operaciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var objProducto in Model)
+        {
+            <tr>
+                <td>@objProducto.idProducto</td>
+                <td><img src="@objProducto.url_imagen" width="100px" height="100px";/></td>
+                <td>@objProducto.nombre</td>
+                <td>@objProducto.descripcion</td>
+                <td>@objProducto.precioUnitario CLP</td>
+                <td><a class="btn btn-success" href="~/Producto/Ver/@objProducto.idProducto"><span class="glyphicon glyphicon-eye-open"></span> Ver Producto</a></td>
+                
+            </tr>
+        }
+    </tbody>
 
-<h2>Index</h2>
-<ul>
-    @foreach (var url in Model)
-    {
-        <li><a href="/@url.controller/@url.action">@url.nombre</a></li>
-    }
-</ul>
+</table>

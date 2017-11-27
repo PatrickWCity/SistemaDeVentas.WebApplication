@@ -40,7 +40,12 @@ namespace MvcApplication1.Controllers
             Producto producto = db_context.Producto.Where(x => x.idProducto == id).FirstOrDefault();//change db
             return View(producto);
         }
-
+        [HttpGet]
+        public ActionResult Ver(int id)//ver producto
+        {
+            Producto producto = db_context.Producto.Where(x => x.idProducto == id).FirstOrDefault();//change db
+            return View(producto);
+        }
         [HttpPost]
         public ActionResult Editarproducto(Producto producto)
         {
