@@ -130,6 +130,7 @@
     <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\ComprasController.cs" />
     <Compile Include="Controllers\DetalleVentaController.cs" />
     <Compile Include="Controllers\FacturaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -257,14 +258,72 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\elastislide.css" />
+    <Content Include="Content\plugins\fancybox\jquery.fancybox-buttons.css" />
+    <Content Include="Content\plugins\fancybox\jquery.fancybox-thumbs.css" />
+    <Content Include="Content\plugins\fancybox\jquery.fancybox.css" />
+    <Content Include="Content\plugins\skeuocard\skeuocard.css" />
+    <Content Include="Content\plugins\skeuocard\skeuocard.reset.css" />
+    <Content Include="Content\plugins\wizard\acc-wizard.min.css" />
+    <Content Include="Content\site2.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\ocra-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="img\card-flip-arrow.png" />
+    <Content Include="img\card-front-background.png" />
+    <Content Include="img\card-invalid-indicator.png" />
+    <Content Include="img\card-valid-anim.gif" />
+    <Content Include="img\card-valid-indicator.png" />
+    <Content Include="img\credit_cards.png" />
+    <Content Include="img\customer_service.jpg" />
+    <Content Include="img\error-pointer.png" />
+    <Content Include="img\issuers\visa-chase-sapphire.png" />
+    <Content Include="img\issuers\visa-simple-front.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\logo.jpg" />
+    <Content Include="img\nav.png" />
+    <Content Include="img\products\amex-front.png" />
+    <Content Include="img\products\dinersclubintl-front.png" />
+    <Content Include="img\products\discover-front.png" />
+    <Content Include="img\products\generic-back.png" />
+    <Content Include="img\products\generic-front.png" />
+    <Content Include="img\products\jcb-front.png" />
+    <Content Include="img\products\maestro-front.png" />
+    <Content Include="img\products\mastercard-front.png" />
+    <Content Include="img\products\unionpay-front.png" />
+    <Content Include="img\products\visa-back.png" />
+    <Content Include="img\products\visa-front.png" />
+    <Content Include="img\src\card-front-background.fw.png" />
+    <Content Include="img\src\error-pointer.png" />
+    <Content Include="img\src\product-amex-front.fw.png" />
+    <Content Include="img\src\product-dinersclub-front.fw.png" />
+    <Content Include="img\src\product-discover-front.fw.png" />
+    <Content Include="img\src\product-generic-front.fw.png" />
+    <Content Include="img\src\product-jcb-front.fw.png" />
+    <Content Include="img\src\product-maestro-front.fw.png" />
+    <Content Include="img\src\product-mastercard-front.fw.png" />
+    <Content Include="img\src\product-unionpay-front.fw.png" />
+    <Content Include="img\src\product-visa-front.fw.png" />
+    <Content Include="Scripts\jquery.easing.min.js" />
+    <Content Include="Scripts\jquery.elastislide.js" />
+    <Content Include="Scripts\jquerypp.custom.js" />
+    <Content Include="Scripts\modernizr.custom.17475.js" />
+    <Content Include="Scripts\plugins\fancybox\jquery.fancybox-buttons.js" />
+    <Content Include="Scripts\plugins\fancybox\jquery.fancybox-media.js" />
+    <Content Include="Scripts\plugins\fancybox\jquery.fancybox-thumbs.js" />
+    <Content Include="Scripts\plugins\fancybox\jquery.fancybox.js" />
+    <Content Include="Scripts\plugins\fancybox\jquery.fancybox.pack.js" />
+    <Content Include="Scripts\plugins\skeuocard\cssua.min.js" />
+    <Content Include="Scripts\plugins\skeuocard\skeuocard.js" />
+    <Content Include="Scripts\plugins\skeuocard\skeuocard.min.js" />
+    <Content Include="Scripts\plugins\wizard\acc-wizard.min.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
@@ -294,6 +353,9 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\ocra-webfont.eot" />
+    <Content Include="fonts\ocra-webfont.ttf" />
+    <Content Include="fonts\ocra-webfont.woff" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -367,6 +429,7 @@
     <Content Include="Views\Carrito\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Cart.cshtml" />
+    <Content Include="Views\Categoria\Ver.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

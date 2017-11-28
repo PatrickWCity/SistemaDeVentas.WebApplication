@@ -2,16 +2,19 @@
 @{
     ViewBag.Title = "Editar";
 }
+<div class="body padding">
+    <div class="container">
+        <h2>Editar</h2>
+        <form action="/Cliente/Editarcliente" method="post">
+            <input type="hidden" name="cliente.idCliente" value="@Model.idCliente" />
+            <input type="text" name="cliente.nombre" value="@Model.nombre" />
+            <input type="text" name="cliente.apPaterno" value="@Model.apPaterno" />
+            <input type="text" name="cliente.apMaterno" value="@Model.apMaterno" />
+            <input type="text" name="cliente.direccion" value="@Model.direccion" />
+            <input type="text" name="cliente.telefono" value="@Model.telefono" />
+            <input type="text" name="cliente.rut" value="@Model.rut" />
+            <input type="submit" />
+        </form>
 
-<h2>Editar</h2>
-<form action="/Cliente/Editarcliente" method="post">
-    <input type="hidden" name="cliente.idCliente" value="@Model.idCliente" />
-    <input type="text" name="cliente.nombre" value="@Model.nombre" />
-    <input type="text" name="cliente.apPaterno" value="@Model.apPaterno" />
-    <input type="text" name="cliente.apMaterno" value="@Model.apMaterno" />
-    <input type="text" name="cliente.direccion" value="@Model.direccion" />
-    <input type="text" name="cliente.telefono" value="@Model.telefono" />
-    <input type="text" name="cliente.rut" value="@Model.rut" />
-    <input type="submit" />
-</form>
-
+        </div>
+</div>

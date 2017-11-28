@@ -2,12 +2,15 @@
 @{
     ViewBag.Title = "Editar";
 }
+<div class="body padding">
+    <div class="container">
+        <h2>Editar</h2>
+        <form action="/ModoPago/EditarmodoPago" method="post">
+            <input type="hidden" name="modoPago.numPago" value="@Model.numPago" />
+            <input type="text" name="modoPago.nombre" value="@Model.nombre" />
+            <input type="text" name="modoPago.otroDetalles" value="@Model.otroDetalles" />
+            <input type="submit" />
+        </form>
 
-<h2>Editar</h2>
-<form action="/ModoPago/EditarmodoPago" method="post">
-    <input type="hidden" name="modoPago.numPago" value="@Model.numPago" />
-    <input type="text" name="modoPago.nombre" value="@Model.nombre" />
-    <input type="text" name="modoPago.otroDetalles" value="@Model.otroDetalles" />
-    <input type="submit" />
-</form>
-
+        </div>
+</div>

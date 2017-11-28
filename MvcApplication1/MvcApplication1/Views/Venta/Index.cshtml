@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Ventas";
 }
-
 <style>
     #alerta {
         background-color: #aaffcc;
@@ -31,147 +30,46 @@
         }
     }
 </style>
-
-<br />
-<br />
-<h2>Las Ventas</h2>
-<div class="container">
-<a href="/Venta/Crear">Agregar una venta</a><br />
-
-@if (Request.Params["Msg"] != null)
-{
-    <span id="alerta">@Request.Params["Msg"]</span>
-}
-
-
-@foreach (var venta in Model)
-{
-    <article>
-        <h3>@venta.total<a href="/Venta/Editar/@venta.idVenta">Editar</a>  <a href="/Venta/Eliminar/@venta.idVenta">Elimimar</a></h3>
-    </article>
-
-}
-
-
-   </div>
-
-
-
-
-<style>
-    .respuesta {
-        padding: 10px;
-        margin: 10px;
-        display: inline-block;
-        background-color: #aaffaa;
-        animation: aparecer 1s;
-    }
-
-    section article {
-        padding: 10px;
-        margin: 10px;
-        width: 20%;
-        background-color: #b6ff00;
-        float: left;
-        transition: all 1s;
-        text-align: center;
-    }
-
-        section article img {
-            width: 100%;
-            height: 100px;
-        }
-
-        section article:hover {
-            transform: scale(1.05,1.05);
-            background-color: #d8ff22;
-            transition: all 1s;
-        }
-
-
-    @@keyframes aparecer {
-        0% {
-            opacity: 0;
-        }
-
-        100% {
-            opacity: 1;
-        }
-    }
-</style>
-<div class="container">
-    <h2>Todas las Ventas</h2>
-    <form id="formulario">
-        <input type="text" name="total" placeholder="total" /><br />
-        <input type="text" name="idCliente" placeholder="idCliente" /><br />
-        <input type="text" name="idVendedor" placeholder="idVendedor" /><br />
-        <input type="text" name="fecha" placeholder="fecha" /><br />
-        <input type="text" name="descuento" placeholder="descuento" /><br />
-        <input type="text" name="IVA" placeholder="IVA" /><br />
-        <button type="button" onclick="obtenerdatos()">Enviar datos al servidor </button>
-    </form>
-</div>
-<div id="respuestaajax">
-
-</div>
-<script>
-    class Venta{
-        constructor(total, idCliente, idVendedor, fecha, descuento, IVA) {
-            this.total = total;
-            this.idCliente = idCliente;
-            this.idVendedor = idVendedor;
-            this.fecha = fecha;
-            this.descuento = descuento;
-            this.IVA = IVA;
-        }
-    }
-
-    function obtenerdatos() {
-        var divresp = document.getElementById("respuestaajax");
-        var objform = document.getElementById("formulario");
-        var objventa = new Venta(objform.total.value, objform.idCliente.value, objform.idVendedor.value, objform.fecha.value, objform.descuento.value, objform.IVA.value);
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-
-                var data = JSON.parse(this.responseText);
-                console.log(data);
-                if(data.Respuesta == "Ok"){
-                    var str = "<article id='venta_" + data.Id +"'>";
-                    str += "<h3>" + objventa.total + "</h3>";
-                    str += "<p>" + objventa.idCliente + "</p>";
-                    str += "<p>" + objventa.idVendedor + "</p>";
-                    str += "<p>" + objventa.fecha + "</p>";
-                    str += "<p>" + objventa.descuento + "</p>";
-                    str += "<p>" + objventa.IVA + "</p>";
-                    str +="<a href='#' >ver más ...</a>";
-                    str += "</article>";
-                    var seccion = document.getElementById("cuerpoventa");
-                    seccion.innerHTML += str;
-                    divresp.innerHTML = "<span class='respuesta'>Venta insertado con éxito</span>";
-                }
-            }
-        };
-        xhttp.open("POST", "/Venta/AgregarVenta", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("total=" + objventa.total + "&idCliente=" + objventa.idCliente + "&idVendedor=" + objventa.idVendedor + "&fecha=" + objventa.fecha + "&descuento=" + objventa.descuento + "&IVA=" + objventa.IVA);
-    }
-
-
-</script>
-<div class="container">
-    <section id="cuerpoventa">
-        @foreach (var venta in Model)
+<div class="body padding">
+    <div class="container">
+        <h2 class="text-center text-success">Listado de Ventas</h2>
+        <div class="well well-sm"><a class="btn btn-primary" href="~/Venta/Crear">Nueva Venta</a></div>
+        @if (Request.Params["Msg"] != null)
         {
-            <article>
-                <h3>@venta.total</h3>
-                <p>@venta.idCliente</p>
-                <p>@venta.idVendedor</p>
-                <p>@venta.fecha</p>
-                <p>@venta.descuento</p>
-                <p>@venta.IVA</p>
-                <a href="#">ver más ...</a>
-            </article>
+            <span id="alerta">@Request.Params["Msg"]</span>
         }
-    </section>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr class="bg-primary">
+                    <th>ID de Venta</th>
+                    <th>Total</th>
+                    <th>ID de Cliente</th>
+                    <th>ID de Vendedor</th>
+                    <th>Fecha</th>
+                    <th>Descuento</th>
+                    <th>IVA</th>
+
+                    <th colspan="2">Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var objCliente in Model)
+                {
+                    <tr>
+                        <td>@objCliente.idVenta</td>
+                        <td>@objCliente.total CLP</td>
+                        <td>@objCliente.idCliente</td>
+                        <td>@objCliente.idVendedor</td>
+                        <td>@objCliente.fecha</td>
+                        <td>@objCliente.descuento %</td>
+                        <td>@objCliente.IVA %</td>
+                        <td><a class="btn btn-info" href="~/Venta/Editar/@objCliente.idVenta"><span class="glyphicon glyphicon-pencil"></span> Editar</a></td>
+                        <td><a class="btn btn-danger" href="~/Venta/Eliminar/@objCliente.idVenta"><span class="glyphicon glyphicon-remove"></span> Eliminar</a></td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
     </div>
+</div>

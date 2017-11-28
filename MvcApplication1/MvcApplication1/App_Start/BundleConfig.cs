@@ -24,7 +24,9 @@ namespace MvcApplication1
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                 "~/Content/site2.css",
                  "~/Content/font-awesome.css",
+                 "~/Content/bootstrap.min.css",
                  "~/Content/bootstrap.css",
                  "~/Content/Site.css"));
 
@@ -45,6 +47,8 @@ namespace MvcApplication1
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/bootstrap.bundle.min.js",
+                "~/Script/jquery.easing.min.js",
+                "~/Scripts/site.js",
                 "~/Scripts/respond.js"));
         }
     }

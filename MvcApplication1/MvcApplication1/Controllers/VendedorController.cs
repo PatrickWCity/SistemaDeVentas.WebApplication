@@ -45,6 +45,10 @@ namespace MvcApplication1.Controllers
                                      where vendedors.idVendedor == vendedor.idVendedor
                                      select vendedors).FirstOrDefault();
             estevendedor.nombre = vendedor.nombre;
+            estevendedor.apPaterno = vendedor.apPaterno;
+            estevendedor.apMaterno = vendedor.apMaterno;
+            estevendedor.telefono = vendedor.telefono;
+            estevendedor.rut = vendedor.rut;
             db_context.SaveChanges();
 
             return RedirectToAction("Index", "Vendedor", new { Msg = "Dato editado con éxito" });

@@ -45,6 +45,11 @@ namespace MvcApplication1.Controllers
                                      where detalleVentas.idDetalle == detalleVenta.idDetalle
                                      select detalleVentas).FirstOrDefault();
             estedetalleVenta.subTotal = detalleVenta.subTotal;
+            estedetalleVenta.numFactura = detalleVenta.numFactura;
+            estedetalleVenta.idVenta = detalleVenta.idVenta;
+            estedetalleVenta.idProducto = detalleVenta.idProducto;
+            estedetalleVenta.cantidad = detalleVenta.cantidad;
+
             db_context.SaveChanges();
 
             return RedirectToAction("Index", "DetalleVenta", new { Msg = "Dato editado con éxito" });

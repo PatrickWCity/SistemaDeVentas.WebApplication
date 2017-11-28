@@ -46,6 +46,11 @@ namespace MvcApplication1.Controllers
                                      where ventas.idVenta == venta.idVenta
                                      select ventas).FirstOrDefault();
             esteventa.total = venta.total;// ver
+            esteventa.idCliente = venta.idCliente;
+            esteventa.idVendedor = venta.idVendedor;
+            esteventa.fecha = venta.fecha;
+            esteventa.descuento = venta.descuento;
+            esteventa.IVA =  venta.IVA;
             db_context.SaveChanges();
 
             return RedirectToAction("Index", "Venta", new { Msg = "Dato editado con éxito" });

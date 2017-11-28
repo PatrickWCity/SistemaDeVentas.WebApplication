@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Detalles de Ventas";
 }
-
 <style>
     #alerta {
         background-color: #aaffcc;
@@ -31,143 +30,44 @@
         }
     }
 </style>
-
-<br />
-<br />
-<h2>Los Detalles de Venta</h2>
-<div class="container">
-    <a href="/DetalleVenta/Crear">Agregar una detalleVenta</a><br />
-
-    @if (Request.Params["Msg"] != null)
-    {
-        <span id="alerta">@Request.Params["Msg"]</span>
-    }
-
-
-    @foreach (var detalleVenta in Model)
-    {
-        <article>
-            <h3>@detalleVenta.idDetalle <a href="/DetalleVenta/Editar/@detalleVenta.idDetalle">Editar</a>  <a href="/DetalleVenta/Eliminar/@detalleVenta.idDetalle">Elimimar</a></h3>
-        </article>
-
-    }
-
-    </div>
-
-
-
-
-
-    <style>
-        .respuesta {
-            padding: 10px;
-            margin: 10px;
-            display: inline-block;
-            background-color: #aaffaa;
-            animation: aparecer 1s;
-        }
-
-        section article {
-            padding: 10px;
-            margin: 10px;
-            width: 20%;
-            background-color: #b6ff00;
-            float: left;
-            transition: all 1s;
-            text-align: center;
-        }
-
-            section article img {
-                width: 100%;
-                height: 100px;
-            }
-
-            section article:hover {
-                transform: scale(1.05,1.05);
-                background-color: #d8ff22;
-                transition: all 1s;
-            }
-
-
-        @@keyframes aparecer {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
-    <h2>Todos los Detalles de Venta</h2>
-<div class="container">
-    <form id="formulario">
-        <input type="text" name="numFactura" placeholder="numFactura" /><br />
-        <input type="text" name="idVenta" placeholder="idVenta" /><br />
-        <input type="text" name="subTotal" placeholder="subTotal" /><br />
-        <input type="text" name="idProducto" placeholder="idProducto" /><br />
-        <input type="text" name="cantidad" placeholder="cantidad" /><br />
-        <button type="button" onclick="obtenerdatos()">Enviar datos al servidor </button>
-    </form>
-    </div>
-    <div id="respuestaajax">
-
-    </div>
-    <script>
-        class DetalleVenta {
-            constructor(numFactura, idVenta, subTotal, idProducto, cantidad) {
-                this.numFactura = numFactura;
-                this.idVenta = idVenta;
-                this.subTotal = subTotal;
-                this.idProducto = idProducto;
-                this.cantidad = cantidad;
-            }
-        }
-
-        function obtenerdatos() {
-            var divresp = document.getElementById("respuestaajax");
-            var objform = document.getElementById("formulario");
-            var objdetalleVenta = new DetalleVenta(objform.numFactura.value, objform.idVenta.value, objform.subTotal.value, objform.idProducto.value, objform.cantidad.value);
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-
-                    var data = JSON.parse(this.responseText);
-                    console.log(data);
-                    if (data.Respuesta == "Ok") {
-                        var str = "<article id='detalleVenta_" + data.Id + "'>";
-                        str += "<h3>" + objdetalleVenta.numFactura + "</h3>";
-                        str += "<p>" + objdetalleVenta.idVenta + "</p>";
-                        str += "<p>" + objdetalleVenta.subTotal + "</p>";
-                        str += "<p>" + objdetalleVenta.idProducto + "</p>";
-                        str += "<p>" + objdetalleVenta.cantidad + "</p>";
-                        str += "<a href='#' >ver más ...</a>";
-                        str += "</article>";
-                        var seccion = document.getElementById("cuerpodetalleVenta");
-                        seccion.innerHTML += str;
-                        divresp.innerHTML = "<span class='respuesta'>DetalleVenta insertado con éxito</span>";
-                    }
-                }
-            };
-            xhttp.open("POST", "/DetalleVenta/AgregarDetalleVenta", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("numFactura=" + objdetalleVenta.numFactura + "&idVenta=" + objdetalleVenta.idVenta + "&subTotal=" + objdetalleVenta.subTotal + "&idProducto=" + objdetalleVenta.idProducto + "&cantidad=" + objdetalleVenta.cantidad);
-        }
-
-
-    </script>
-<div class="container">
-    <section id="cuerpodetalleVenta">
-        @foreach (var detalleVenta in Model)
+<div class="body padding">
+    <div class="container">
+        <h2 class="text-center text-success">Listado de Detalles de Venta</h2>
+        <div class="well well-sm"><a class="btn btn-primary" href="~/DetalleVenta/Crear">Nuevo Detalle de Venta</a></div>
+        @if (Request.Params["Msg"] != null)
         {
-            <article>
-                <h3>@detalleVenta.numFactura</h3>
-                <p>@detalleVenta.idVenta</p>
-                <p>@detalleVenta.subTotal</p>
-                <p>@detalleVenta.idProducto</p>
-                <p>@detalleVenta.cantidad</p>
-                <a href="#">ver más ...</a>
-            </article>
+            <span id="alerta">@Request.Params["Msg"]</span>
         }
-    </section>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr class="bg-primary">
+                    <th>ID de Detalle de Venta</th>
+                    <th>ID de Factura</th>
+                    <th>ID de Venta</th>
+                    <th>Subtotal</th>
+                    <th>ID de Producto</th>
+                    <th>Cantidad</th>
+
+                    <th colspan="2">Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var objVendedor in Model)
+                {
+                    <tr>
+                        <td>@objVendedor.idDetalle</td>
+                        <td>@objVendedor.numFactura</td>
+                        <td>@objVendedor.idVenta</td>
+                        <td>@objVendedor.subTotal CLP</td>
+                        <td>@objVendedor.idProducto</td>
+                        <td>@objVendedor.cantidad</td>
+                        <td><a class="btn btn-info" href="~/DetalleVenta/Editar/@objVendedor.idDetalle"><span class="glyphicon glyphicon-pencil"></span> Editar</a></td>
+                        <td><a class="btn btn-danger" href="~/DetalleVenta/Eliminar/@objVendedor.idDetalle"><span class="glyphicon glyphicon-remove"></span> Eliminar</a></td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
     </div>
+</div>

@@ -30,7 +30,12 @@ namespace MvcApplication1.Controllers
             ViewBag.Msg = "Categoria insertado con éxito";
             return RedirectToAction("Index", "Categoria", new { Msg = "Dato agregado con éxito" });
         }
-
+        [HttpGet]
+        public ActionResult Ver(int id)//ver producto de categoria
+        {
+            List<Producto> producto = db_context.Producto.Where(x => x.idCategoria == id).ToList();//change db
+            return View(producto);
+        }
         [HttpGet]
         public ActionResult Editar(int id)
         {
@@ -45,6 +50,7 @@ namespace MvcApplication1.Controllers
                                      where categorias.idCategoria == categoria.idCategoria
                                      select categorias).FirstOrDefault();
             estecategoria.nombre = categoria.nombre;
+            estecategoria.descripcion = categoria.descripcion;
             db_context.SaveChanges();
 
             return RedirectToAction("Index", "Categoria", new { Msg = "Dato editado con éxito" });

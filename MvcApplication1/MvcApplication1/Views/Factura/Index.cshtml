@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Facturas";
 }
-
 <style>
     #alerta {
         background-color: #aaffcc;
@@ -31,143 +30,44 @@
         }
     }
 </style>
-
-<br />
-<br />
-<h2>Las Facturas</h2>
-<div class="container">
-    <a href="/Factura/Crear">Agregar una factura</a><br />
-
-    @if (Request.Params["Msg"] != null)
-    {
-        <span id="alerta">@Request.Params["Msg"]</span>
-    }
-
-
-    @foreach (var factura in Model)
-    {
-        <article>
-            <h3>@factura.total <a href="/Factura/Editar/@factura.numFactura">Editar</a>  <a href="/Factura/Eliminar/@factura.numFactura">Elimimar</a></h3>
-        </article>
-
-    }
-
-    </div>
-
-
-
-
-
-    <style>
-        .respuesta {
-            padding: 10px;
-            margin: 10px;
-            display: inline-block;
-            background-color: #aaffaa;
-            animation: aparecer 1s;
-        }
-
-        section article {
-            padding: 10px;
-            margin: 10px;
-            width: 20%;
-            background-color: #b6ff00;
-            float: left;
-            transition: all 1s;
-            text-align: center;
-        }
-
-            section article img {
-                width: 100%;
-                height: 100px;
-            }
-
-            section article:hover {
-                transform: scale(1.05,1.05);
-                background-color: #d8ff22;
-                transition: all 1s;
-            }
-
-
-        @@keyframes aparecer {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
-    <h2>Todas las Facturas</h2>
-<div class="container">
-    <form id="formulario">
-        <input type="text" name="fecha" placeholder="fecha" /><br />
-        <input type="text" name="IVA" placeholder="IVA" /><br />
-        <input type="text" name="total" placeholder="total" /><br />
-        <input type="text" name="numPago" placeholder="numPago" /><br />
-        <input type="text" name="descuento" placeholder="descuento" /><br />
-        <button type="button" onclick="obtenerdatos()">Enviar datos al servidor </button>
-    </form>
-</div>
-    <div id="respuestaajax">
-
-    </div>
-    <script>
-        class Factura {
-            constructor(fecha, IVA, total, numPago, descuento) {
-                this.fecha = fecha;
-                this.IVA = IVA;
-                this.total = total;
-                this.numPago = numPago;
-                this.descuento = descuento;
-            }
-        }
-
-        function obtenerdatos() {
-            var divresp = document.getElementById("respuestaajax");
-            var objform = document.getElementById("formulario");
-            var objfactura = new Factura(objform.fecha.value, objform.IVA.value, objform.total.value, objform.numPago.value, objform.descuento.value);
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-
-                    var data = JSON.parse(this.responseText);
-                    console.log(data);
-                    if (data.Respuesta == "Ok") {
-                        var str = "<article id='factura_" + data.Id + "'>";
-                        str += "<h3>" + objfactura.fecha + "</h3>";
-                        str += "<p>" + objfactura.IVA + "</p>";
-                        str += "<p>" + objfactura.total + "</p>";
-                        str += "<p>" + objfactura.numPago + "</p>";
-                        str += "<p>" + objfactura.descuento + "</p>";
-                        str += "<a href='#' >ver más ...</a>";
-                        str += "</article>";
-                        var seccion = document.getElementById("cuerpofactura");
-                        seccion.innerHTML += str;
-                        divresp.innerHTML = "<span class='respuesta'>Factura insertado con éxito</span>";
-                    }
-                }
-            };
-            xhttp.open("POST", "/Factura/AgregarFactura", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("fecha=" + objfactura.fecha + "&IVA=" + objfactura.IVA + "&total=" + objfactura.total + "&numPago=" + objfactura.numPago + "&descuento=" + objfactura.descuento);
-        }
-
-
-    </script>
-<div class="container">
-    <section id="cuerpofactura">
-        @foreach (var factura in Model)
+<div class="body padding">
+    <div class="container">
+        <h2 class="text-center text-success">Listado de Facturas</h2>
+        <div class="well well-sm"><a class="btn btn-primary" href="~/Factura/Crear">Nueva Factura</a></div>
+        @if (Request.Params["Msg"] != null)
         {
-            <article>
-                <h3>@factura.fecha</h3>
-                <p>@factura.IVA</p>
-                <p>@factura.total</p>
-                <p>@factura.numPago</p>
-                <p>@factura.descuento</p>
-                <a href="#">ver más ...</a>
-            </article>
+            <span id="alerta">@Request.Params["Msg"]</span>
         }
-    </section>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr class="bg-primary">
+                    <th>ID de Factura</th>
+                    <th>ID de Modo de Pago</th>
+                    <th>Total</th>
+                    <th>Fecha</th>
+                    <th>Descuento</th>
+                    <th>IVA</th>
+
+                    <th colspan="2">Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var objCliente in Model)
+                {
+                    <tr>
+                        <td>@objCliente.numFactura</td>
+                        <td>@objCliente.numPago</td>
+                        <td>@objCliente.total CLP</td>
+                        <td>@objCliente.fecha</td>
+                        <td>@objCliente.descuento %</td>
+                        <td>@objCliente.IVA %</td>
+                        <td><a class="btn btn-info" href="~/Factura/Editar/@objCliente.numFactura"><span class="glyphicon glyphicon-pencil"></span> Editar</a></td>
+                        <td><a class="btn btn-danger" href="~/Factura/Eliminar/@objCliente.numFactura"><span class="glyphicon glyphicon-remove"></span> Eliminar</a></td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
     </div>
+</div>

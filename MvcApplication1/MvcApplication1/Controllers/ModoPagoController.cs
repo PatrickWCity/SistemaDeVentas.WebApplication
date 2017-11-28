@@ -45,6 +45,8 @@ namespace MvcApplication1.Controllers
                                      where modoPagos.numPago == modoPago.numPago
                                      select modoPagos).FirstOrDefault();
             estemodoPago.nombre = modoPago.nombre;
+            estemodoPago.otroDetalles = modoPago.otroDetalles;
+
             db_context.SaveChanges();
 
             return RedirectToAction("Index", "ModoPago", new { Msg = "Dato editado con éxito" });

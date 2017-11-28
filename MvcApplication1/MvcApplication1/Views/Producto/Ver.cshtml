@@ -2,14 +2,51 @@
 @{
     ViewBag.Title = "Ver Producto";
 }
-<div class="col-lg-9">
-    <div class="card mt-4">
-        <img class="card-img-top img-fluid" src="@Model.url_imagen" alt="@Model.nombre" width="100%" height="400px">
-        <div class="card-body">
-            <h3 class="card-title">ID: @Model.idProducto</h3>
-            <h3 class="card-title">Nombre: @Model.nombre</h3>
-            <h4>Precio Unitario: @Model.precioUnitario CLP</h4>
-            <p class="card-text">@Model.descripcion</p>
-        </div>
-        <td><a class="btn btn-info" @Html.ActionLink("Agregar a Carrito", "OrderNow", "ShoppingCart", new { id = Model.idProducto},null)</a></td>
-    </div>
+
+    <div class="body padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 hidden-xs">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Categories</h3>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item"><a href="~/Categoria">Ver Todas las Categorias</a></li>
+                            <li class="list-group-item"><a href="~/Categoria/Ver/1">Camera Digitales</a></li>
+                            <li class="list-group-item"><a href="~/Categoria/Ver/2">Laptops y Notebooks</a></li>
+                            <li class="list-group-item"><a href="~/Categoria/Ver/3">Televisión</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img src="@Model.url_imagen" alt="..." class="img-responsive img-thumbnail" />
+                        </div>
+                        <div class="col-md-6">
+                            <h3>@Model.nombre <small>ID: @Model.idProducto</small></h3>
+                            <div class="border"></div>
+                            <h3>Descripcion</h3>
+                            <p>@Model.descripcion</p>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="well">
+                                <div class="price">
+                                    <h3><i class="fa fa-tag"></i> Precio: @Model.precioUnitario CLP</h3>
+                                    <div class="border borderstrong"></div>
+                                </div>
+                                <div class="add">
+                                    <a class="btn btn-primary btn-block" @Html.ActionLink("Agregar al Carrito", "OrderNow", "ShoppingCart", new { id = Model.idProducto }, null)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nav tabs -->
+
+                    <!-- Tab panes -->
+                </div>
+            </div><!--end products section-->
+        </div><!--end container-->
+    </div><!--end body-->

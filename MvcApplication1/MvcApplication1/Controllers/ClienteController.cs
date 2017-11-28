@@ -45,6 +45,11 @@ namespace MvcApplication1.Controllers
                                      where clientes.idCliente == cliente.idCliente
                                      select clientes).FirstOrDefault();
             estecliente.nombre = cliente.nombre;
+            estecliente.apPaterno = cliente.apPaterno;
+            estecliente.apMaterno = cliente.apMaterno;
+            estecliente.direccion = cliente.direccion;
+            estecliente.telefono = cliente.telefono;
+            estecliente.rut = cliente.rut;
             db_context.SaveChanges();
 
             return RedirectToAction("Index", "Cliente", new { Msg = "Dato editado con éxito" });

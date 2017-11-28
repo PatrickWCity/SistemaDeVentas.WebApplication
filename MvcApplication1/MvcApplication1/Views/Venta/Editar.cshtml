@@ -2,15 +2,18 @@
 @{
     ViewBag.Title = "Editar";
 }
-
-<h2>Editar</h2>
-<form action="/Venta/Editarventa" method="post">
-    <input type="hidden" name="venta.idVenta" value="@Model.idVenta" />
-    <input type="text" name="venta.total" value="@Model.total"  />
-    <input type="text" name="venta.idCliente" value="@Model.idCliente"  />
-    <input type="text" name="venta.idVendedor" value="@Model.idVendedor"  />
-    <input type="text" name="venta.fecha" value="@Model.fecha"  />
-    <input type="text" name="venta.descuento" value="@Model.descuento"  />
-    <input type="text" name="venta.IVA" value="@Model.IVA"  />
-    <input type="submit"/>
-</form>
+<div class="body padding">
+    <div class="container">
+        <h2>Editar</h2>
+        <form action="/Venta/Editarventa" method="post">
+            <input type="hidden" name="venta.idVenta" value="@Model.idVenta" />
+            <input type="text" name="venta.total" value="@Model.total" />
+            <input type="text" name="venta.idCliente" value="@Model.idCliente" />
+            <input type="text" name="venta.idVendedor" value="@Model.idVendedor" />
+            <input type="text" name="venta.fecha" value="@Model.fecha" />
+            <input type="text" name="venta.descuento" value="@Model.descuento" />
+            <input type="text" name="venta.IVA" value="@Model.IVA" />
+            <input type="submit" />
+        </form>
+        </div>
+</div>

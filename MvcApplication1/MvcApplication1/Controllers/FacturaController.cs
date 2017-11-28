@@ -46,6 +46,10 @@ namespace MvcApplication1.Controllers
                                      where facturas.numFactura == factura.numFactura
                                      select facturas).FirstOrDefault();
             estefactura.total = factura.total;
+            estefactura.fecha = factura.fecha;
+            estefactura.IVA = factura.IVA;
+            estefactura.numPago = factura.numPago;
+            estefactura.descuento = factura.descuento;
             db_context.SaveChanges();
 
             return RedirectToAction("Index", "Factura", new { Msg = "Dato editado con éxito" });

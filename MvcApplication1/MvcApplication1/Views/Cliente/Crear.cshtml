@@ -1,15 +1,18 @@
 ﻿@{
     ViewBag.Title = "Crear";
 }
+<div class="body padding">
+    <div class="container">
+        <h2>Crear</h2>
 
-<h2>Crear</h2>
-
-<form action="/Cliente/CrearCliente" method="post">
-    <input type="text" name="cliente.nombre" />
-    <input type="text" name="cliente.apPaterno" />
-    <input type="text" name="cliente.apMaterno" />
-    <input type="text" name="cliente.direccion" />
-    <input type="text" name="cliente.telefono" />
-    <input type="text" name="cliente.rut" />
-    <input type="submit" value="Guardar" />
-</form>
+        <form action="/Cliente/CrearCliente" method="post">
+            <input type="text" name="cliente.nombre" />
+            <input type="text" name="cliente.apPaterno" />
+            <input type="text" name="cliente.apMaterno" />
+            <input type="text" name="cliente.direccion" />
+            <input type="text" name="cliente.telefono" />
+            <input type="text" name="cliente.rut" />
+            <input type="submit" value="Guardar" />
+        </form>
+        </div>
+    </div>

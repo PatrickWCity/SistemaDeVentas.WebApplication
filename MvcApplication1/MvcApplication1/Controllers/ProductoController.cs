@@ -53,6 +53,10 @@ namespace MvcApplication1.Controllers
                                where productos.idProducto == producto.idProducto
                                select productos).FirstOrDefault();
             esteproducto.nombre = producto.nombre;
+            esteproducto.descripcion = producto.descripcion;
+            esteproducto.precioUnitario = producto.precioUnitario;
+            esteproducto.url_imagen = producto.url_imagen;
+            esteproducto.idCategoria = producto.idCategoria;
             db_context.SaveChanges();
 
             return RedirectToAction("Index", "Producto", new { Msg = "Dato editado con éxito" });

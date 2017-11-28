@@ -4,304 +4,47 @@
     ViewBag.Title = "Productos";
 }
 
-<style>
-    #alerta {
-        background-color: #aaffcc;
-        padding: 10px;
-        display: inline-block;
-        width: 100%;
-        animation: aparecer 2s;
-    }
-
-    article {
-        width: 20%;
-        margin: 10px;
-        padding: 10px;
-        float: left;
-        background-color: #aaccff;
-    }
-
-    @@keyframes aparecer {
-        0% {
-            opacity: 0;
-        }
-
-        100% {
-            opacity: 1;
-        }
-    }
-</style>
-
-<br />
-<br />
-<h2>Los Productos</h2>
-<div class="container">
-    <a href="/Producto/Crear">Agregar un producto</a><br />
-
-    @if (Request.Params["Msg"] != null)
-    {
-        <span id="alerta">@Request.Params["Msg"]</span>
-    }
-
-
-    @foreach (var producto in Model)
-    {
-        <article>
-            <h3>
-                @producto.nombre <a href="/Producto/Editar/@producto.idProducto">Editar</a>
-            <a href="/Producto/Eliminar/@producto.idProducto">Elimimar</a>
-        </h3>
-    </article>
-
-    }
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-    <style>
-        .respuesta {
-            padding: 10px;
-            margin: 10px;
-            display: inline-block;
-            background-color: #aaffaa;
-            animation: aparecer 1s;
-        }
-
-        section article {
-            padding: 10px;
-            margin: 10px;
-            width: 20%;
-            background-color: #b6ff00;
-            float: left;
-            transition: all 1s;
-            text-align: center;
-        }
-
-            section article img {
-                width: 100%;
-                height: 100px;
-            }
-
-            section article:hover {
-                transform: scale(1.05,1.05);
-                background-color: #d8ff22;
-                transition: all 1s;
-            }
-
-
-        @@keyframes aparecer {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
-    <h2>Todos los Productos</h2>
-<div class="container">
-    <form id="formulario">
-        <input type="text" name="nombre" placeholder="nombre" /><br />
-        <input type="text" name="descripcion" placeholder="descripcion" /><br />
-        <input type="text" name="precioUnitario" placeholder="precioUnitario" /><br />
-        <input type="text" name="url_imagen" placeholder="url_imagen" /><br />
-        <input type="text" name="idCategoria" placeholder="idCategoria" /><br />
-        <button type="button" onclick="obtenerdatos()">Enviar datos al servidor </button>
-    </form>
-    </div>
-    <div id="respuestaajax">
-
-    </div>
-    <script>
-        class Producto {
-            constructor(nombre, descripcion, precioUnitario, url_imagen, idCategoria) {
-                this.nombre = nombre;
-                this.descripcion = descripcion;
-                this.precioUnitario = precioUnitario;
-                this.url_imagen = url_imagen;
-                this.idCategoria = idCategoria;
-            }
-        }
-
-        function obtenerdatos() {
-            var divresp = document.getElementById("respuestaajax");
-            var objform = document.getElementById("formulario");
-            var objproducto = new Producto(objform.nombre.value, objform.precioUnitario.value, objform.url_imagen.value, objform.idCategoria.value);
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-
-                    var data = JSON.parse(this.responseText);
-                    console.log(data);
-                    if (data.Respuesta == "Ok") {
-                        var str = "<article id='producto_" + data.Id + "'>";
-                        str += "<h3>" + objproducto.nombre + "</h3>";
-                        str += "<p>" + objproducto.precioUnitario + "</p>";
-                        str += "<img src=" + objproducto.url_imagen + " />";
-                        str += "<p>" + objproducto.idCategoria + "</p>";
-                        str += "<a href='#' >ver más ...</a>";
-                        str += "</article>";
-                        var seccion = document.getElementById("cuerpoproducto");
-                        seccion.innerHTML += str;
-                        divresp.innerHTML = "<span class='respuesta'>Producto insertado con éxito</span>";
-                    }
-                }
-            };
-            xhttp.open("POST", "/Producto/AgregarProducto", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("nombre=" + objproducto.nombre + "&descripcion=" + objproducto.descripcion + "&precioUnitario=" + objproducto.precioUnitario + "&url_imagen=" + objproducto.url_imagen + "&idCategoria=" + objproducto.idCategoria);
-        }
-
-
-    </script>
-<div class="container">
-    <section id="cuerpoproducto">
-        @foreach (var producto in Model)
-        {
-            <article>
-                <h3>@producto.nombre</h3>
-                <p>@producto.precioUnitario</p>
-                <img src="@producto.url_imagen" />
-                <p>@producto.idCategoria</p>
-                <a href="#">ver más ...</a>
-            </article>
-        }
-    </section>
-    </div>
-
-
-
-<h2 class="text-center text-success">Listado de los Ultimos 10 Productos Nuevos</h2>
-<div class="well well-sm"><a class="btn btn-primary" href="~/Producto/Create">Nuevo</a></div>
-<table class="table table-hover table-striped">
-    <thead>
-        <tr class="bg-primary">
-            <th>Código</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Precio Unitario</th>
-            <th colspan="3">Operaciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var objProducto in Model)
-        {
-            <tr>
-                <td>@objProducto.idProducto</td>
-                <td>@objProducto.nombre</td>
-                <td>@objProducto.descripcion</td>
-                <td>@objProducto.precioUnitario CLP</td>
-                <td><a class="btn btn-success" href="~/Producto/Ver/@objProducto.idProducto"><span class="glyphicon glyphicon-eye-open"></span> Ver Producto</a></td>
-                <td><a class="btn btn-info" href="~/Producto/Editar/@objProducto.idProducto"><span class="fa fa-edit"></span> Editar Producto</a></td>
-                <td><a class="btn btn-danger" href="~/Producto/Eliminar/@objProducto.idProducto"><span class="fa fa-remove"></span> Eliminar Producto</a></td>
-
-            </tr>
-        }
-    </tbody>
-
-</table>
-
-<style>
-    .glyphicon {
-        margin-right: 5px;
-    }
-
-    .thumbnail {
-        margin-bottom: 20px;
-        padding: 0px;
-        -webkit-border-radius: 0px;
-        -moz-border-radius: 0px;
-        border-radius: 0px;
-    }
-
-    .item.list-group-item {
-        float: none;
-        width: 100%;
-        background-color: #fff;
-        margin-bottom: 10px;
-    }
-
-        .item.list-group-item:nth-of-type(odd):hover, .item.list-group-item:hover {
-            background: #428bca;
-        }
-
-        .item.list-group-item .list-group-image {
-            margin-right: 10px;
-        }
-
-        .item.list-group-item .thumbnail {
-            margin-bottom: 0px;
-        }
-
-        .item.list-group-item .caption {
-            padding: 9px 9px 0px 9px;
-        }
-
-        .item.list-group-item:nth-of-type(odd) {
-            background: #eeeeee;
-        }
-
-        .item.list-group-item:before, .item.list-group-item:after {
-            display: table;
-            content: " ";
-        }
-
-        .item.list-group-item img {
-            float: left;
-        }
-
-        .item.list-group-item:after {
-            clear: both;
-        }
-
-    .list-group-item-text {
-        margin: 0 0 11px;
-    }
-</style>
-<script>$(document).ready(function () {
-        $('#list').click(function (event) { event.preventDefault(); $('#products .item').addClass('list-group-item'); });
-        $('#grid').click(function (event) { event.preventDefault(); $('#products .item').removeClass('list-group-item'); $('#products .item').addClass('grid-group-item'); });
-    });</script>
-
-
-<div class="container">
-
-
-@foreach (var objProducto in Model)
-{
-        <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="@objProducto.url_imagen" alt="@objProducto.nombre" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        @objProducto.nombre
-                    </h4>
-                    <p class="group inner list-group-item-text">
-                        @objProducto.descripcion
-                    </p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">
-                                @objProducto.precioUnitario CLP
-                            </p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="/ShoppingCart/OrderNow/@objProducto.idProducto">Agregar al Carrito</a>
-                        </div>
+<div class="body padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 hidden-xs">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Categories</h3>
                     </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="~/Categoria">Ver Todas las Categorias</a></li>
+                        <li class="list-group-item"><a href="~/Categoria/Ver/1">Camera Digitales</a></li>
+                        <li class="list-group-item"><a href="~/Categoria/Ver/2">Laptops y Notebooks</a></li>
+                        <li class="list-group-item"><a href="~/Categoria/Ver/3">Televisión</a></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-}
- 
+            <div class="col-md-10">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">PRODUCTOS</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            @foreach (var producto in Model)
+                            {
+
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="thumbnail">
+                                        <img src="@producto.url_imagen" alt="@producto.nombre">
+                                        <div class="caption text-center">
+                                            <h3>@producto.nombre</h3>
+                                        </div><!--end caption-->
+                                        <a href="~/Producto/Ver/@producto.idProducto" class="btn btn-warning" role="button">Ver Producto <i class="fa fa-angle-right"></i></a>
+                                    </div><!--end thumbnail-->
+                                </div><!--end col-->
+
+                            }
+                        </div><!--end row-->
+                    </div><!--end panel-body-->
+                </div><!--end panel-->
+            </div>
+        </div><!--end products section-->
+    </div><!--end container-->
 </div>

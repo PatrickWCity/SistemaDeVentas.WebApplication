@@ -1,58 +1,98 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>@ViewBag.Title - DigiTienda</title>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>@ViewBag.Title - eTienda</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-               @Html.ActionLink("DigiTienda", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <!--<li>@Html.ActionLink("Home", "Index", "Home")</li>-->
-                    
-                    <li>@Html.ActionLink("Cliente", "Index", "Cliente")</li>
-                    <li>@Html.ActionLink("Vendedor", "Index", "Vendedor")</li>
-                    <li>@Html.ActionLink("Categoria", "Index", "Categoria")</li>
-                    <li>@Html.ActionLink("Producto", "Index", "Producto")</li>
-                    <li>@Html.ActionLink("ModoPago", "Index", "ModoPago")</li>
-                    <li>@Html.ActionLink("Venta", "Index", "Venta")</li>
-                    <li>@Html.ActionLink("Factura", "Index", "Factura")</li>
-                    <li>@Html.ActionLink("DetalleVenta", "Index", "DetalleVenta")</li>
-                   
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Carrito", "Index", "Carrito")</li>
-                    <li>@Html.ActionLink("Login", "Index", "Login")</li>
-                    <li>@Html.ActionLink("Registrar", "Index", "Registrar")</li>
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        @RenderSection("SPAViews", required: false)
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - DigiTienda</p>
-        </footer>
-    </div>
+    <div class="wrapper">
+        <div class="header">
+            <div class="padding container">
+                <div class="row">
+                    <div class="col-xs-6 col-md-4 text-center">
+                        <h1 class="logo"><a href="~/">eTIENDA</a></h1>
+                    </div>
+                    <div class="hidden-xs col-md-4">
+                        <div class="input-group"><!-- add aherf here ? -->
+                            <input type="text" class="form-control" placeholder="Buscar Producto">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-xs-6 col-md-4 text-center">
+                        <a href="~/ShoppingCart/" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Carrito</a>
+                    </div>
+                </div>
+                <nav class="navbar navbar-default" role="navigation">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="~/"><span class="label label-danger"><i class="fa fa-home"></i></span></a>
+                    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("Scripts", required: false)
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="~/Producto">PRODUCTOS</a></li>
+                            <li><a href="~/Categoria">CATEGORIAS</a></li>
+                            <li><a href="~/Home/About">SOBRE NOSOTROS</a></li>
+                            <li><a href="~/Home/Contact">CONTACTANOS</a></li>
+                            
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    ADMIN
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/Cliente">Cliente</a></li>
+                                    <li><a href="~/Vendedor">Vendedor</a></li>
+                                    <!--<li><a href="~/Categoria">Categoria</a></li>
+            <li><a href="~/Producto">Producto</a></li>-->
+                                    <li><a href="~/ModoPago">ModoPago</a></li>
+                                    <li><a href="~/Venta">Venta</a></li>
+                                    <li><a href="~/Factura">Factura</a></li>
+                                    <li><a href="~/DetalleVenta">DetalleVenta</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="~/Login">LOGINS</a></li>
+                            <li><a href="~/Registrar">REGISTRAR</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+            </div><!--end container-->
+        </div><!--end header-->
+        @RenderBody()
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("Scripts", required: false)
+
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <img src="img/credit_cards.png" alt="" class="img-responsive" />
+                        <br />
+                        <p><strong><i class="fa fa-location-arrow"></i> Direccion: 1234 La Casa, Santiago, Region Metropolitana, Chile</strong></p>
+                        <p>&copy; 2017 eTienda Ecommerce&reg; <strong><a href="http://eTienda.cl" target="_blank">eTienda.cl</a></strong></p>
+                    </div>
+                </div><!--end row-->
+            </div><!--end container-->
+        </div><!--end footer-->
+    </div><!--end wrapper-->
+
 </body>
 </html>

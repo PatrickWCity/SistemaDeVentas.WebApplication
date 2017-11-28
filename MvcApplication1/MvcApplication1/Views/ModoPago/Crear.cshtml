@@ -1,10 +1,13 @@
 ﻿@{
     ViewBag.Title = "Crear";
 }
-
-<h2>Crear</h2>
-<form action="/ModoPago/CrearModoPago" method="post">
-    <input type="text" name="modoPago.nombre" />
-    <input type="text" name="modoPago.otroDetalles" />
-    <input type="submit" value="Guardar" />
-</form>
+<div class="body padding">
+    <div class="container">
+        <h2>Crear</h2>
+        <form action="/ModoPago/CrearModoPago" method="post">
+            <input type="text" name="modoPago.nombre" />
+            <input type="text" name="modoPago.otroDetalles" />
+            <input type="submit" value="Guardar" />
+        </form>
+        </div>
+</div>

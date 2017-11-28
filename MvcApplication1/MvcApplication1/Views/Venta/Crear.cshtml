@@ -1,14 +1,17 @@
 ﻿@{
     ViewBag.Title = "Crear";
 }
-
-<h2>Crear</h2>
-<form action="/Venta/CrearVenta" method="post">
-    <input type="text" name="venta.total" />
-    <input type="text" name="venta.idCliente" />
-    <input type="text" name="venta.idVendedor" />
-    <input type="text" name="venta.fecha" />
-    <input type="text" name="venta.descuento" />
-    <input type="text" name="venta.IVA" />
-    <input type="submit" value="Guardar" />
-</form>
+<div class="body padding">
+    <div class="container">
+        <h2>Crear</h2>
+        <form action="/Venta/CrearVenta" method="post">
+            <input type="text" name="venta.total" />
+            <input type="text" name="venta.idCliente" />
+            <input type="text" name="venta.idVendedor" />
+            <input type="text" name="venta.fecha" />
+            <input type="text" name="venta.descuento" />
+            <input type="text" name="venta.IVA" />
+            <input type="submit" value="Guardar" />
+        </form>
+        </div>
+</div>

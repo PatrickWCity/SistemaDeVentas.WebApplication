@@ -2,75 +2,69 @@
     ViewBag.Title = "Cart";
 }
 
-<h2>Cart</h2>
 @using MvcApplication1.Models
     @{
         double grandTotal = 0;
     }
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-10 col-md-offset-1">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th class="text-center">Precio</th>
-                        <th class="text-center">Total</th>
-                        <th> </th>
-                    </tr>
-                </thead>
-                <tbody>
+
+
+
+<div class="body padding">
+    <div class="container">
+        <table id="cart" class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th style="width:50%">Product</th>
+                    <th style="width:10%">Price</th>
+                    <th style="width:8%">Quantity</th>
+                    <th style="width:22%" class="text-center">Subtotal</th>
+                    <th style="width:10%"></th>
+                </tr>
+            </thead>
+            <tbody>
 
 @foreach (Item item in (List<Item>)Session["cart"])
 {
     double subTotal = Convert.ToDouble(item.Cantidad) * Convert.ToDouble(item.Producto.precioUnitario);
     grandTotal += subTotal;
-                    <tr>
-                        <td class="col-md-6">
-                            <div class="media">
-                                <a class="thumbnail pull-left" href="#"> <img class="media-object" src="@item.Producto.url_imagen" style="width: 72px; height: 72px;"> </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><a href="#">@item.Producto.nombre</a></h4>
-                                    <h5 class="media-heading"><a href="#"></a></h5>
-                                    <span>Status: </span><span class="text-warning"><strong>En Carrito</strong></span>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="col-md-1 text-center"><strong>@item.Cantidad</strong></td>
-                        <td class="col-md-1 text-center"><strong>@item.Producto.precioUnitario CLP</strong></td>
-                        <td class="col-md-1 text-center"><strong>@(item.Producto.precioUnitario * item.Cantidad) CLP</strong></td>
-                        <td class="col-md-1">
-                            <a href="/ShoppingCart/Eliminar/@item.Producto.idProducto" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-remove"></span> Remove</a>
-                        </td>
-                    </tr>
 
+
+                <tr>
+                    <td data-th="Product">
+                        <div class="row">
+                            <div class="col-sm-2 hidden-xs"><img src="@item.Producto.url_imagen" alt="..." class="img-responsive" /></div>
+                            <div class="col-sm-10">
+                                <h4 class="nomargin">@item.Producto.nombre</h4>
+                                <p>@item.Producto.descripcion</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-th="Price">@item.Producto.precioUnitario CLP</td>
+                    <td data-th="Quantity">@item.Cantidad</td>
+                    <td data-th="Subtotal" class="text-center">@(item.Producto.precioUnitario * item.Cantidad) CLP</td>
+                    <td class="actions" data-th="">
+                        <a href="/ShoppingCart/OrderNow/@item.Producto.idProducto" class="btn btn-info" role="button"><span class="glyphicon glyphicon-plus"></span></a>
+                        <a href="/ShoppingCart/Eliminar/@item.Producto.idProducto" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-minus"></span></a>
+                        
+                    </td>
+                </tr>
 
 }
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td><h3>Total</h3></td>
-                        <td class="text-right"><h3><strong>@grandTotal CLP</strong></h3></td>
-                    </tr>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>
-                            <button type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-shopping-cart"></span> Continuar Comprando
-                            </button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-success">
-                                Comprar <span class="glyphicon glyphicon-play"></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+
+
+            </tbody>
+            <tfoot>
+                <tr class="visible-xs">
+                    <td class="text-center"><strong>Total @grandTotal CLP</strong></td>
+                </tr>
+                <tr>
+                    <td><a href="~/Producto" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                    <td colspan="2" class="hidden-xs"></td>
+                    <td class="hidden-xs text-center"><strong>Total @grandTotal CLP</strong></td>
+                    <td><a href="~/DetalleVenta" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div><!--end container-->
     </div>
-</div>

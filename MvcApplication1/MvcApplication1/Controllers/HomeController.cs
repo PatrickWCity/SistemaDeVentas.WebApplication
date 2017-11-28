@@ -17,20 +17,20 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            List<Producto> resp = db_context.Producto.OrderByDescending(q => q.idProducto).Take(10).ToList();
+            List<Producto> resp = db_context.Producto.OrderByDescending(q => q.idProducto).Take(4).ToList();
             return View(resp);
            // return View(db_context.Urls.ToList());
         }
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Sobre Nosotros!";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Contactenos!";
 
             return View();
         }
