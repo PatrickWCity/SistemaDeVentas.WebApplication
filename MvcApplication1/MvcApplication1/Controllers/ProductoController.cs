@@ -12,11 +12,27 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult Index()//asp get all
         {
+
+
             List<Producto> resp = db_context.Producto.ToList();
             return View(resp);
 
             //List<Producto> resp = db_context.Producto.OrderByDescending(q => q.idProducto).Take(10).ToList();
             //return View(resp);
+        }
+
+        public ActionResult Buscar(string buscaEsto)//asp buscar
+        {
+            var productos = from s in db_context.Producto select s;
+            if (!string.IsNullOrEmpty(buscaEsto))
+            {
+                productos = productos.Where(c => c.nombre.Contains(buscaEsto));
+            }
+            return View(productos);
+
+
+            //List<Producto> producto = db_context.Producto.Where(q =>q.nombre.ToUpper().Contains(buscaEsto.ToUpper())).ToList();//change db
+            //return View(producto);
         }
 
         [HttpGet]

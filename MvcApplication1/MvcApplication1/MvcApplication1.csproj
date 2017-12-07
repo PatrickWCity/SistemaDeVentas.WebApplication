@@ -130,6 +130,7 @@
     <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\ComprarController.cs" />
     <Compile Include="Controllers\ComprasController.cs" />
     <Compile Include="Controllers\DetalleVentaController.cs" />
     <Compile Include="Controllers\FacturaController.cs" />
@@ -323,7 +324,6 @@
     <Content Include="Scripts\plugins\skeuocard\skeuocard.js" />
     <Content Include="Scripts\plugins\skeuocard\skeuocard.min.js" />
     <Content Include="Scripts\plugins\wizard\acc-wizard.min.js" />
-    <Content Include="Scripts\site.js" />
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
@@ -430,6 +430,10 @@
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Cart.cshtml" />
     <Content Include="Views\Categoria\Ver.cshtml" />
+    <Content Include="Views\Compras\Index.cshtml" />
+    <Content Include="Views\Comprar\Index.cshtml" />
+    <Content Include="Views\Comprar\Comprar.cshtml" />
+    <Content Include="Views\Producto\Buscar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

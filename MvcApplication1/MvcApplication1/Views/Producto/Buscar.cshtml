@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Buscar";
+}
+
+@model IEnumerable<MvcApplication1.Models.Producto>
+
+<div class="body padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 hidden-xs">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Categories</h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="~/Categoria">Ver Todas las Categorias</a></li>
+                        <li class="list-group-item"><a href="~/Categoria/Ver/1">Camera Digitales</a></li>
+                        <li class="list-group-item"><a href="~/Categoria/Ver/2">Laptops y Notebooks</a></li>
+                        <li class="list-group-item"><a href="~/Categoria/Ver/3">Televisión</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">PRODUCTOS</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            @foreach (var producto in Model)
+                            {
+
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="thumbnail">
+                                        <img src="@producto.url_imagen" alt="@producto.nombre">
+                                        <div class="caption text-center">
+                                            <h3>@producto.nombre</h3>
+                                        </div><!--end caption-->
+                                        <a href="~/Producto/Ver/@producto.idProducto" class="btn btn-warning" role="button">Ver Producto <i class="fa fa-angle-right"></i></a>
+                                    </div><!--end thumbnail-->
+                                </div><!--end col-->
+
+                            }
+                        </div><!--end row-->
+                    </div><!--end panel-body-->
+                </div><!--end panel-->
+            </div>
+        </div><!--end products section-->
+    </div><!--end container-->
+</div>

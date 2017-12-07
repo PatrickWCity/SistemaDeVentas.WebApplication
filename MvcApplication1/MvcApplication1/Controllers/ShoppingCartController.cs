@@ -14,6 +14,14 @@ namespace MvcApplication1.Controllers
         private SistemaVentaEntities db = new SistemaVentaEntities();
         public ActionResult Index()
         {
+            if (Session["cart"] == null)
+            {
+                List<Item> cart = new List<Item>();
+                Session["cart"] = cart;
+            }
+            else
+            {
+            }
             return View("Cart");
         }
         private int isExisting(int id)

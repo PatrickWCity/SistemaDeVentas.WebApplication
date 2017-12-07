@@ -2,6 +2,31 @@
     ViewBag.Title = "Login";
 }
 <style>
+    #alerta {
+        background-color: #aaffcc;
+        padding: 10px;
+        display: inline-block;
+        width: 100%;
+        animation: aparecer 2s;
+    }
+
+    article {
+        width: 20%;
+        margin: 10px;
+        padding: 10px;
+        float: left;
+        background-color: #aaccff;
+    }
+
+    @@keyframes aparecer {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
     body {
         padding-top: 90px;
     }
@@ -137,6 +162,10 @@ $(function () {
 <div class="body padding">
 
         <div class="container">
+            @if (Request.Params["Msg"] != null)
+            {
+                <span id="alerta">@Request.Params["Msg"]</span>
+            }
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <div class="panel panel-login">

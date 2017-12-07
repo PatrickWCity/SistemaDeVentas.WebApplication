@@ -226,7 +226,7 @@ left: 50%;
 	vertical-align: middle;
 }
 
-.credit-card-input.no-js p.no-support-warning{color:#ff0000}
+.credit-card-input.no-js p.no-support-warning{color:#fff}
 
 .credit-card-input.no-js label+input,.credit-card-input.no-js label+select{display:block}
 

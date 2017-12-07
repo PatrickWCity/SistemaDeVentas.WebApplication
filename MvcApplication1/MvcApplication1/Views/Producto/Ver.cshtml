@@ -1,6 +1,6 @@
 ﻿@model MvcApplication1.Models.Producto
 @{
-    ViewBag.Title = "Ver Producto";
+    ViewBag.Title = @Model.nombre +" - Producto";
 }
 
     <div class="body padding">
@@ -29,19 +29,22 @@
                             <div class="border"></div>
                             <h3>Descripcion</h3>
                             <p>@Model.descripcion</p>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="well">
-                                <div class="price">
-                                    <h3><i class="fa fa-tag"></i> Precio: @Model.precioUnitario CLP</h3>
-                                    <div class="border borderstrong"></div>
-                                </div>
-                                <div class="add">
-                                    <a class="btn btn-primary btn-block" @Html.ActionLink("Agregar al Carrito", "OrderNow", "ShoppingCart", new { id = Model.idProducto }, null)</a>
+                           
+                                <!-- Go to www.addthis.com/dashboard to customize your tools --> <div class="addthis_sharing_toolbox"></div>
+
+                            </div>
+                            <div class="col-md-3">
+                                <div class="well">
+                                    <div class="price">
+                                        <h3><i class="fa fa-tag"></i> Precio: @Model.precioUnitario CLP</h3>
+                                        <div class="border borderstrong"></div>
+                                    </div>
+                                    <div class="add">
+                                        <a class="btn btn-primary btn-block" @Html.ActionLink("Agregar al Carrito", "OrderNow", "ShoppingCart", new { id = Model.idProducto }, null)</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
                     <!-- Nav tabs -->
 

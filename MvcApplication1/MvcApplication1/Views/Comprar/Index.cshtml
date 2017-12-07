@@ -1,0 +1,127 @@
+﻿@model List<MvcApplication1.Models.ModoPago>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="body padding">
+    <div class="container">
+        <div class="row acc-wizard">
+            <div class="col-md-2">
+                <ol class="acc-wizard-sidebar">
+                    <li class="acc-wizard-todo"><a href="#shipinfo">Datos de Despacho</a></li>
+                    <li class="acc-wizard-todo"><a href="#billinfo">Datos de Cliente</a></li>
+                    <li class="acc-wizard-todo"><a href="#ccinfo">Modo de Pago</a></li>
+                </ol>
+            </div>
+            <div class="col-md-8">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#shipinfo">
+                                    Datos de Despacho
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="shipinfo" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <form id="form-shipinfo">
+                                    <div class="form-group">
+                                        <label for="name">Nombre</label>
+                                        <input type="text" id="name" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastname">Apellido Paterno</label>
+                                        <input type="text" id="lastname" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastname">Apellido Materno</label>
+                                        <input type="text" id="lastname" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Direccion</label>
+                                        <input type="text" id="address" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Correo</label>
+                                        <input type="email" id="email" class="form-control" />
+                                    </div>
+                                </form><!--end ship info form-->
+                            </div><!--end panel-body-->
+                        </div><!--end panel-collapse-->
+                    </div><!--end panel-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#billinfo">
+                                    Datos de Cliente
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="billinfo" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <form id="form-billinfo">
+                                    <div class="form-group">
+                                        <label for="name">Nombre</label>
+                                        <input type="text" id="name" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastname">Apellido Paterno</label>
+                                        <input type="text" id="lastname" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Apellido Materno</label>
+                                        <input type="text" id="address" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Correo</label>
+                                        <input type="email" id="email" class="form-control" />
+                                    </div>
+                                </form><!--end bill info-->
+                            </div><!--end panel-body-->
+                        </div><!--end panel-collapse-->
+                    </div><!--end panel-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#ccinfo">
+                                    Modo de Pago
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="ccinfo" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <form id="form-ccinfo">
+                                    <div class="credit-card-input no-js" id="skeuocard">
+                                        <label for="cc_type">Modo de Pago</label>
+                                        <select name="modoPago.numPago"><!-- modelo-->
+                                            <option value="">...</option>
+                                            @foreach (var objModoPago in Model)
+                                            {
+                                                <option value="@objModoPago.numPago" >@objModoPago.nombre</option>
+                                            }
+                                        </select>
+                                        <label for="cc_number">Numero de Targeta</label>
+                                        <input type="text" name="cc_number" id="cc_number" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" size="19">
+                                        <label for="cc_exp_month">Mes de Expiracion</label>
+                                        <input type="text" name="cc_exp_month" id="cc_exp_month" placeholder="00">
+                                        <label for="cc_exp_year">Ano de Expiracion</label>
+                                        <input type="text" name="cc_exp_year" id="cc_exp_year" placeholder="00">
+                                        <label for="cc_name">Nombre de Titular</label>
+                                        <input type="text" name="cc_name" id="cc_name" placeholder="John Doe">
+                                        <label for="cc_cvc">CVC</label>
+                                        <input type="text" name="cc_cvc" id="cc_cvc" placeholder="123" maxlength="3" size="3">
+                                    </div>
+                                    <div class="pull-right">
+                                        <button class="btn btn-success">Confirm</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </form><!--end cc info form-->
+                            </div><!--end panel-body-->
+                        </div><!--end panel-collapse-->
+                    </div><!--end panel-->
+                </div><!--end panel-group-->
+            </div><!--end col-md-8-->
+        </div><!--end acc-wizard-->
+    </div><!--end container-->
+</div><!--end body-->

@@ -28,6 +28,7 @@ namespace MvcApplication1
                  "~/Content/font-awesome.css",
                  "~/Content/bootstrap.min.css",
                  "~/Content/bootstrap.css",
+                 "~/Content/acc-wizard.min.css",
                  "~/Content/Site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
@@ -49,6 +50,7 @@ namespace MvcApplication1
                 "~/Scripts/bootstrap.bundle.min.js",
                 "~/Script/jquery.easing.min.js",
                 "~/Scripts/site.js",
+                "~/Scripts/plugins/wizard/acc-wizard.min.js",
                 "~/Scripts/respond.js"));
         }
     }

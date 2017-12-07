@@ -34,5 +34,28 @@ namespace MvcApplication1.Controllers
             }
         }
 
+
+        [HttpGet]
+        public JsonResult Iniciar(string email, string pass)
+        {
+            var usuar = db.Usuarios.Where(x => x.email == email && x.password == pass).FirstOrDefault();
+            if (usuar != null)
+            {
+                Session["usuario"] = usuar;
+                return Json(new { respuesta = "ok" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                ViewBag.error = "Usuario y contraseña no existen";
+                return Json(new { respuesta = "Usuario y contraseña no existen" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public ActionResult CerrarSesion()
+        {
+
+                Session["usuario"] = null;
+                return RedirectToAction("index", "Home");
+        }
     }
 }
