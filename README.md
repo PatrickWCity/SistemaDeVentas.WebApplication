@@ -1,1 +1,3 @@
-Sistema de Ventas ASP.NET
+SistemaDeVentas.WebApplication
+
+Hecho con Visual Studio 2012 Community Edition
